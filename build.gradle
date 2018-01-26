@@ -26,6 +26,9 @@ buildscript {
     }
 }
 
+version "0.1"
+group "edu.berkeley.calnet.bidms.cas"
+
 apply plugin: 'org.springframework.boot'
 apply from: "https://raw.githubusercontent.com/apereo/cas/${project.casGitBranch}/gradle/overrides.gradle"
 apply plugin: 'war'
