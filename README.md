@@ -11,7 +11,9 @@ And then you'll need to edit this file.  It doesn't have to live in
 `src/main/resources/cas_config.yml` if you're building a WAR file.  When
 deploying the WAR file to an application server, you'll need to start up the
 application server with `-Dcas.standalone.config.file=PATH/cas_config.yml`,
-pointing to the location of your CAS configuration file.
+pointing to the location of your CAS configuration file.  You'll probably
+also have to set `-Dcas.standalone.config=PATH` where PATH is the directory
+to [src/main/resources/application.yml](application.yml).
 
 You'll need to generate a keypair for TLS.  You can use the
 [genKey.sh](genKey.sh) script.
