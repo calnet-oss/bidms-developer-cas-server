@@ -53,3 +53,19 @@ cas.authn.ldap[0].searchEntryHandlers[0].type: OBJECT_GUID
 cas.authn.ldap[0].useSsl: true
 cas.authn.ldap[0].connectTimeout: 5000
 cas.authn.ldap[0].subtreeSearch: true
+
+cas.authn.attributeRepository.ldap[0].attributes.uid: uid
+cas.authn.attributeRepository.ldap[0].attributes.displayName: displayName
+cas.authn.attributeRepository.ldap[0].attributes.sn: surname
+cas.authn.attributeRepository.ldap[0].attributes.givenName: givenName
+cas.authn.attributeRepository.ldap[0].attributes.cn: commonName
+
+cas.authn.attributeRepository.ldap[0].ldapUrl: ldaps://HOST
+cas.authn.attributeRepository.ldap[0].useSsl: true
+cas.authn.attributeRepository.ldap[0].useStartTls: false
+cas.authn.attributeRepository.ldap[0].connectTimeout=5000
+cas.authn.attributeRepository.ldap[0].baseDn: dc=berkeley,dc=edu
+cas.authn.attributeRepository.ldap[0].userFilter: berkeleyEduKerberosPrincipalString={user}
+cas.authn.attributeRepository.ldap[0].subtreeSearch: true
+cas.authn.attributeRepository.ldap[0].bindDn: BINDDN
+cas.authn.attributeRepository.ldap[0].bindCredential: BINDPW
