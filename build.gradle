@@ -53,10 +53,11 @@ repositories {
 }
 
 dependencies {
-    compile("org.apereo.cas:cas-server-webapp:${project.casVersion}@war") {
+    runtime("org.apereo.cas:cas-server-webapp:${project.casVersion}@war") {
         transitive = true
     }
-    compile "org.apereo.cas:cas-server-support-ldap:${project.casVersion}"
+    runtime "org.apereo.cas:cas-server-support-yaml-service-registry:${project.casVersion}"
+    runtime "org.apereo.cas:cas-server-support-ldap:${project.casVersion}"
 
     runtime group: 'com.fasterxml', name: 'classmate', version: '1.3.4'
     providedRuntime "org.springframework.boot:spring-boot-starter-tomcat:1.5.9.RELEASE"

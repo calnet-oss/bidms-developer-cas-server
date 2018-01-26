@@ -1,0 +1,11 @@
+# https://apereo.github.io/cas/5.2.x/installation/YAML-Service-Management.html
+
+--- !<org.apereo.cas.services.RegexRegisteredService>
+serviceId: "testId"
+name: "YAML"
+id: 1000
+description: "description"
+attributeReleasePolicy: !<org.apereo.cas.services.ReturnAllAttributeReleasePolicy> {}
+accessStrategy: !<org.apereo.cas.services.DefaultRegisteredServiceAccessStrategy>
+  enabled: true
+  ssoEnabled: true
