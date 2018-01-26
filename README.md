@@ -18,3 +18,7 @@ You'll need to generate a keypair for TLS.  You can use the
 
 You can run as `./gradlew bootRun --console plain` or build a WAR file with
 `./gradlew war`.  
+
+Any customization files here are licensed under the [BSD
+two-clause license](LICENSE.txt) ([CAS itself is
+licensed](https://github.com/apereo/cas/blob/master/LICENSE) differently).
