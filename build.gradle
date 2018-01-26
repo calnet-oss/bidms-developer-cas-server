@@ -1,0 +1,60 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        // If using a Maven proxy, put the property settings in
+        // ~/.gradle/gradle.properties for default_proxy_url,
+        // default_proxy_username and default_proxy_password.
+        if (project.hasProperty("default_proxy_url")) {
+            maven {
+                url project.property("default_proxy_url")
+                credentials {
+                    username project.property("default_proxy_username")
+                    password project.property("default_proxy_password")
+                }
+            }
+        }
+        jcenter()
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:1.5.9.RELEASE"
+    }
+}
+
+apply plugin: 'org.springframework.boot'
+apply from: 'https://raw.githubusercontent.com/apereo/cas/5.2.x/gradle/overrides.gradle'
+apply plugin: 'war'
+apply plugin: 'application'
+
+repositories {
+    mavenLocal()
+    // If using a Maven proxy, put the property settings in
+    // ~/.gradle/gradle.properties for default_proxy_url,
+    // default_proxy_username and default_proxy_password.
+    if (project.hasProperty("default_proxy_url")) {
+        maven {
+            url project.property("default_proxy_url")
+            credentials {
+                username project.property("default_proxy_username")
+                password project.property("default_proxy_password")
+            }
+        }
+    }
+    jcenter()
+}
+
+dependencies {
+    compile "org.apereo.cas:cas-server-webapp:5.2.1"
+    compile "org.apereo.cas:cas-server-support-ldap:5.2.1"
+
+    runtime group: 'com.fasterxml', name: 'classmate', version: '1.3.4'
+    providedRuntime "org.springframework.boot:spring-boot-starter-tomcat:1.5.9.RELEASE"
+}
+
+springBoot {
+    mainClass = "org.springframework.boot.loader.WarLauncher"
+}
+mainClassName = "org.springframework.boot.loader.WarLauncher"
+
+bootRun {
+  jvmArgs = ["-Dserver.port=8060", "-Dcas.standalone.config=${buildDir}/resources/main", "-Dcas.standalone.config.file=${buildDir}/resources/main/cas_config.yml"]
+}

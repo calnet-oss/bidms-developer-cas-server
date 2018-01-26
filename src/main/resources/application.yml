@@ -1,0 +1,10 @@
+server:
+  contextPath: /cas
+  port: 8060
+  ssl:
+    keyStore: classpath:testkeystore.jks
+    keyStorePassword: changeit
+    keyPassword: changeit
+
+logging:
+    config: classpath:log4j2.xml

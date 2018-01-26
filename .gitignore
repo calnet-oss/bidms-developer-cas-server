@@ -1,0 +1,5 @@
+.gradle/
+build/
+logs/
+src/main/resources/testkeystore.jks
+src/main/resources/cas_config.yml
