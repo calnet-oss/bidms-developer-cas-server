@@ -53,7 +53,7 @@ repositories {
 }
 
 dependencies {
-    runtime("org.apereo.cas:cas-server-webapp:${project.casVersion}@war") {
+    compile("org.apereo.cas:cas-server-webapp:${project.casVersion}@war") {
         transitive = true
     }
     runtime "org.apereo.cas:cas-server-support-yaml-service-registry:${project.casVersion}"

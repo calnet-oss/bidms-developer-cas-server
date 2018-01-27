@@ -13,6 +13,8 @@ logging:
 
 cas.authn.accept.users:
 
+cas.serviceRegistry.yaml.location: classpath:/services
+
 # leave cas.host.name unset
 cas.server.name: https://localhost:8060
 cas.server.prefix: ${cas.server.name}/cas
@@ -35,6 +37,7 @@ cas.tgc.cipherEnabled: true
 #cas.authn.ldap[0].bindCredential: BINDPW
 # Not sure what this is used for but CAS complains if it's not set.
 #cas.authn.ldap[0].dnFormat: uid=%s,dc=berkeley,dc=edu
+#cas.authn.ldap[0].principalAttributeId: uid
 #cas.authn.ldap[0].userFilter: sAMAccountName={user}
 #cas.authn.ldap[0].searchEntryHandlers[0].type: OBJECT_SID
 
@@ -46,6 +49,7 @@ cas.authn.ldap[0].bindDn: BINDDN
 cas.authn.ldap[0].bindCredential: BINDPW
 # Not sure what this is used for but CAS complains if it's not set.
 cas.authn.ldap[0].dnFormat: uid=%s,ou=People,dc=berkeley,dc=edu
+cas.authn.ldap[0].principalAttributeId: uid
 cas.authn.ldap[0].userFilter: berkeleyEduKerberosPrincipalString={user}
 # Not sure what the best setting here is for LDAP.
 cas.authn.ldap[0].searchEntryHandlers[0].type: OBJECT_GUID
@@ -53,6 +57,13 @@ cas.authn.ldap[0].searchEntryHandlers[0].type: OBJECT_GUID
 cas.authn.ldap[0].useSsl: true
 cas.authn.ldap[0].connectTimeout: 5000
 cas.authn.ldap[0].subtreeSearch: true
+cas.authn.ldap[0].allowMissingPrincipalAttributeValue: false
+cas.authn.ldap[0].allowMultiplePrincipalAttributeValues: false
+cas.authn.ldap[0].allowMultipleDns: false
+
+cas.personDirectory.principalAttribute: uid
+cas.personDirectory.returnNull: false
+cas.personDirectory.principalResolutionFailureFatal: true
 
 cas.authn.attributeRepository.ldap[0].attributes.uid: uid
 cas.authn.attributeRepository.ldap[0].attributes.displayName: displayName
@@ -69,3 +80,7 @@ cas.authn.attributeRepository.ldap[0].userFilter: berkeleyEduKerberosPrincipalSt
 cas.authn.attributeRepository.ldap[0].subtreeSearch: true
 cas.authn.attributeRepository.ldap[0].bindDn: BINDDN
 cas.authn.attributeRepository.ldap[0].bindCredential: BINDPW
+
+cas.personDirectory.principalAttribute=uid
+cas.personDirectory.returnNull=false
+cas.personDirectory.principalResolutionFailureFatal=true

@@ -231,6 +231,10 @@
             <AppenderRef ref="casConsole"/>
             <AppenderRef ref="casFile"/>
         </AsyncLogger>
+        <AsyncLogger name="edu.berkeley" level="info" additivity="false" includeLocation="true">
+            <AppenderRef ref="casConsole"/>
+            <AppenderRef ref="casFile"/>
+        </AsyncLogger>
         <AsyncRoot level="error">
             <AppenderRef ref="casConsole"/>
         </AsyncRoot>
