@@ -80,7 +80,3 @@ cas.authn.attributeRepository.ldap[0].userFilter: berkeleyEduKerberosPrincipalSt
 cas.authn.attributeRepository.ldap[0].subtreeSearch: true
 cas.authn.attributeRepository.ldap[0].bindDn: BINDDN
 cas.authn.attributeRepository.ldap[0].bindCredential: BINDPW
-
-cas.personDirectory.principalAttribute=uid
-cas.personDirectory.returnNull=false
-cas.personDirectory.principalResolutionFailureFatal=true
