@@ -35,6 +35,7 @@ cas.tgc.cipherEnabled: true
 #cas.authn.ldap[0].baseDn: DC=berkeley,DC=edu
 #cas.authn.ldap[0].bindDn: BINDDN
 #cas.authn.ldap[0].bindCredential: BINDPW
+#cas.authn.ldap[0].attributeResolverEnabled: true
 # Not sure what this is used for but CAS complains if it's not set.
 #cas.authn.ldap[0].dnFormat: uid=%s,dc=berkeley,dc=edu
 #cas.authn.ldap[0].principalAttributeId: uid
@@ -47,6 +48,7 @@ cas.authn.ldap[0].ldapUrl: ldaps://HOST
 cas.authn.ldap[0].baseDn: DC=berkeley,DC=edu
 cas.authn.ldap[0].bindDn: BINDDN
 cas.authn.ldap[0].bindCredential: BINDPW
+cas.authn.ldap[0].attributeResolverEnabled: true
 # Not sure what this is used for but CAS complains if it's not set.
 cas.authn.ldap[0].dnFormat: uid=%s,ou=People,dc=berkeley,dc=edu
 cas.authn.ldap[0].principalAttributeId: uid
