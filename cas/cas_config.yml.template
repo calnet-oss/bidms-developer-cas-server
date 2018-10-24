@@ -20,14 +20,21 @@ cas.server.name: https://localhost:8060
 cas.server.prefix: ${cas.server.name}/cas
 cas.adminPagesSecurity.ip: 127.0.0.1
 
-cas.webflow.alg: AES
+cas.webflow.crypto.alg: AES
+cas.webflow.crypto.enabled: true
 #cas.webflow.crypto.signing.key: KEYHERE
 #cas.webflow.crypto.signing.keySize: 512
 #cas.webflow.crypto.encryption.key: KEYHERE
 #cas.webflow.crypto.encryption.keySize: 16
-cas.tgc.cipherEnabled: true
+cas.tgc.crypto.enabled: true
 #cas.tgc.crypto.signing.key: KEYHERE
 #cas.tgc.crypto.encryption.key: KEYHERE
+cas.ticket.registry.inMemory.crypto.alg: AES
+cas.ticket.registry.inMemory.crypto.enabled: true
+#cas.ticket.registry.inMemory.crypto.signing.key: KEYHERE
+#cas.ticket.registry.inMemory.crypto.signing.keySize: 512
+#cas.ticket.registry.inMemory.crypto.encryption.key: KEYHERE
+#cas.ticket.registry.inMemory.crypto.encryption.keySize: 16
 
 # AD authentication (untested)
 #cas.authn.ldap[0].type: AUTHENTICATED
@@ -35,11 +42,11 @@ cas.tgc.cipherEnabled: true
 #cas.authn.ldap[0].baseDn: DC=berkeley,DC=edu
 #cas.authn.ldap[0].bindDn: BINDDN
 #cas.authn.ldap[0].bindCredential: BINDPW
-#cas.authn.ldap[0].attributeResolverEnabled: true
+#cas.authn.ldap[0].enhanceWithEntryResolver: true
 # Not sure what this is used for but CAS complains if it's not set.
 #cas.authn.ldap[0].dnFormat: uid=%s,dc=berkeley,dc=edu
 #cas.authn.ldap[0].principalAttributeId: uid
-#cas.authn.ldap[0].userFilter: sAMAccountName={user}
+#cas.authn.ldap[0].searchFilter: sAMAccountName={user}
 #cas.authn.ldap[0].searchEntryHandlers[0].type: OBJECT_SID
 
 # LDAP authentication
@@ -52,7 +59,7 @@ cas.authn.ldap[0].attributeResolverEnabled: true
 # Not sure what this is used for but CAS complains if it's not set.
 cas.authn.ldap[0].dnFormat: uid=%s,ou=People,dc=berkeley,dc=edu
 cas.authn.ldap[0].principalAttributeId: uid
-cas.authn.ldap[0].userFilter: berkeleyEduKerberosPrincipalString={user}
+cas.authn.ldap[0].searchFilter: berkeleyEduKerberosPrincipalString={user}
 # Not sure what the best setting here is for LDAP.
 cas.authn.ldap[0].searchEntryHandlers[0].type: OBJECT_GUID
 
@@ -78,7 +85,7 @@ cas.authn.attributeRepository.ldap[0].useSsl: true
 cas.authn.attributeRepository.ldap[0].useStartTls: false
 cas.authn.attributeRepository.ldap[0].connectTimeout=5000
 cas.authn.attributeRepository.ldap[0].baseDn: dc=berkeley,dc=edu
-cas.authn.attributeRepository.ldap[0].userFilter: berkeleyEduKerberosPrincipalString={user}
+cas.authn.attributeRepository.ldap[0].searchFilter: berkeleyEduKerberosPrincipalString={user}
 cas.authn.attributeRepository.ldap[0].subtreeSearch: true
 cas.authn.attributeRepository.ldap[0].bindDn: BINDDN
 cas.authn.attributeRepository.ldap[0].bindCredential: BINDPW
