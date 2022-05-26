@@ -1,36 +1,40 @@
-# https://apereo.github.io/cas/5.2.x/installation/Configuration-Properties.html
-
 server:
-  contextPath: /cas
-  port: 8060
-  ssl:
-    keyStore: classpath:testkeystore.jks
-    keyStorePassword: changeit
-    keyPassword: changeit
+    servlet.context-path: /cas
+    server.port: 8060
+    server.ssl.key-store: classpath:testkeystore.jks
+    server.key-store-password: changeit
+    server.key-password: changeit
 
-logging:
-    config: classpath:log4j2.xml
+logging.config: classpath:log4j2.xml
 
-cas.authn.accept.users:
+# Disable default authn handler
+cas.authn.accept.users: 
 
-cas.serviceRegistry.yaml.location: classpath:/services
+cas.service-registry.yaml.location: classpath:/services
 
 # leave cas.host.name unset
 cas.server.name: https://localhost:8060
 cas.server.prefix: ${cas.server.name}/cas
 cas.adminPagesSecurity.ip: 127.0.0.1
 
-cas.webflow.crypto.alg: AES
-cas.webflow.crypto.enabled: true
+# Webflow crypto is enabled by default. Keys will be automatically generated upon startup
+# only required to manage these settings in a clustered environment
+
+#cas.webflow.crypto.alg: AES
+#cas.webflow.crypto.enabled: true
 #cas.webflow.crypto.signing.key: KEYHERE
 #cas.webflow.crypto.signing.keySize: 512
 #cas.webflow.crypto.encryption.key: KEYHERE
 #cas.webflow.crypto.encryption.keySize: 16
-cas.tgc.crypto.enabled: true
+#cas.tgc.crypto.enabled: true
 #cas.tgc.crypto.signing.key: KEYHERE
 #cas.tgc.crypto.encryption.key: KEYHERE
-cas.ticket.registry.inMemory.crypto.alg: AES
-cas.ticket.registry.inMemory.crypto.enabled: true
+
+# Ticket registry encryption keys will be automatically generated upon startup
+# only required to manage these settings in a clustered environment
+
+#cas.ticket.registry.inMemory.crypto.alg: AES
+#cas.ticket.registry.inMemory.crypto.enabled: true
 #cas.ticket.registry.inMemory.crypto.signing.key: KEYHERE
 #cas.ticket.registry.inMemory.crypto.signing.keySize: 512
 #cas.ticket.registry.inMemory.crypto.encryption.key: KEYHERE
@@ -39,53 +43,53 @@ cas.ticket.registry.inMemory.crypto.enabled: true
 # AD authentication (untested)
 #cas.authn.ldap[0].type: AUTHENTICATED
 #cas.authn.ldap[0].ldapUrl: ldaps://HOST
-#cas.authn.ldap[0].baseDn: DC=berkeley,DC=edu
+#cas.authn.ldap[0].baseDn: DC: berkeley,DC: edu
 #cas.authn.ldap[0].bindDn: BINDDN
 #cas.authn.ldap[0].bindCredential: BINDPW
 #cas.authn.ldap[0].enhanceWithEntryResolver: true
 # Not sure what this is used for but CAS complains if it's not set.
-#cas.authn.ldap[0].dnFormat: uid=%s,dc=berkeley,dc=edu
+#cas.authn.ldap[0].dnFormat: uid: %s,dc: berkeley,dc: edu
 #cas.authn.ldap[0].principalAttributeId: uid
-#cas.authn.ldap[0].searchFilter: sAMAccountName={user}
+#cas.authn.ldap[0].searchFilter: sAMAccountName: {user}
 #cas.authn.ldap[0].searchEntryHandlers[0].type: OBJECT_SID
 
-# LDAP authentication
+# LDAP authentication (using ActiveDirectory)
 cas.authn.ldap[0].type: AUTHENTICATED
-cas.authn.ldap[0].ldapUrl: ldaps://HOST
-cas.authn.ldap[0].baseDn: DC=berkeley,DC=edu
-cas.authn.ldap[0].bindDn: BINDDN
-cas.authn.ldap[0].bindCredential: BINDPW
-cas.authn.ldap[0].attributeResolverEnabled: true
+cas.authn.ldap[0].ldap-url: ldaps://HOST
+cas.authn.ldap[0].base-dn: DC=berkeley,DC=edu
+cas.authn.ldap[0].bind-dn: BINDDN
+cas.authn.ldap[0].bind-credential: BINDPW
+#cas.authn.ldap[0].attributeResolverEnabled: true
 # Not sure what this is used for but CAS complains if it's not set.
-cas.authn.ldap[0].dnFormat: uid=%s,ou=People,dc=berkeley,dc=edu
-cas.authn.ldap[0].principalAttributeId: uid
-cas.authn.ldap[0].searchFilter: berkeleyEduKerberosPrincipalString={user}
+#cas.authn.ldap[0].dnFormat: uid: %s,ou: People,dc: berkeley,dc: edu
+cas.authn.ldap[0].principal-attribute-id: sAMAccountName
+cas.authn.ldap[0].search-filter: sAMAccountName={user}
 # Not sure what the best setting here is for LDAP.
-cas.authn.ldap[0].searchEntryHandlers[0].type: OBJECT_GUID
+#cas.authn.ldap[0].searchEntryHandlers[0].type: OBJECT_GUID
 
-cas.authn.ldap[0].useSsl: true
-cas.authn.ldap[0].connectTimeout: 5000
-cas.authn.ldap[0].subtreeSearch: true
-cas.authn.ldap[0].allowMissingPrincipalAttributeValue: false
-cas.authn.ldap[0].allowMultiplePrincipalAttributeValues: false
-cas.authn.ldap[0].allowMultipleDns: false
+cas.authn.ldap[0].use-ssl: true
+cas.authn.ldap[0].connect-timeout: PT5S
+cas.authn.ldap[0].subtree-search: true
+cas.authn.ldap[0].allow-missing-principal-attribute-value: false
+cas.authn.ldap[0].allow-multiple-principal-attribute-values: false
+cas.authn.ldap[0].allow-multiple-dns: false
 
-cas.personDirectory.principalAttribute: uid
-cas.personDirectory.returnNull: false
-cas.personDirectory.principalResolutionFailureFatal: true
+cas.person-directory.principal-attribute: uid
+cas.person-directory.return-null: false
+cas.person-directory.principal-resolution-failure-fatal: true
 
-cas.authn.attributeRepository.ldap[0].attributes.uid: uid
-cas.authn.attributeRepository.ldap[0].attributes.displayName: displayName
-cas.authn.attributeRepository.ldap[0].attributes.sn: surname
-cas.authn.attributeRepository.ldap[0].attributes.givenName: givenName
-cas.authn.attributeRepository.ldap[0].attributes.cn: commonName
+cas.authn.attribute-repository.ldap[0].attributes.uid: uid
+cas.authn.attribute-repository.ldap[0].attributes.displayName: displayName
+cas.authn.attribute-repository.ldap[0].attributes.sn: surname
+cas.authn.attribute-repository.ldap[0].attributes.givenName: givenName
+cas.authn.attribute-repository.ldap[0].attributes.cn: commonName
 
-cas.authn.attributeRepository.ldap[0].ldapUrl: ldaps://HOST
-cas.authn.attributeRepository.ldap[0].useSsl: true
-cas.authn.attributeRepository.ldap[0].useStartTls: false
-cas.authn.attributeRepository.ldap[0].connectTimeout=5000
-cas.authn.attributeRepository.ldap[0].baseDn: dc=berkeley,dc=edu
-cas.authn.attributeRepository.ldap[0].searchFilter: berkeleyEduKerberosPrincipalString={user}
-cas.authn.attributeRepository.ldap[0].subtreeSearch: true
-cas.authn.attributeRepository.ldap[0].bindDn: BINDDN
-cas.authn.attributeRepository.ldap[0].bindCredential: BINDPW
+cas.authn.attribute-repository.ldap[0].ldap-url: ldaps://HOST
+cas.authn.attribute-repository.ldap[0].use-ssl: true
+cas.authn.attribute-repository.ldap[0].use-start-tls: false
+cas.authn.attribute-repository.ldap[0].connect-timeout: PT5S
+cas.authn.attribute-repository.ldap[0].base-dn: dc=berkeley,dc=edu
+cas.authn.attribute-repository.ldap[0].search-filter: berkeleyEduKerberosPrincipalString={user}
+cas.authn.attribute-repository.ldap[0].subtree-search: true
+cas.authn.attribute-repository.ldap[0].bind-dn: BINDDN
+cas.authn.attribute-repository.ldap[0].bind-credential: BINDPW
