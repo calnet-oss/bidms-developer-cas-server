@@ -1,1 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=edu.berkeley.calnet.bidms.cas.config.BidmsCasAuthenticationPrincipalConfiguration

@@ -1,0 +1,62 @@
+plugins {
+    id 'org.springframework.boot' version "${springBootVersion}"
+    id 'io.spring.dependency-management' version "${springDepMgmtVersion}"
+    id 'groovy'
+    id 'war'
+}
+
+sourceCompatibility = jdkVersion
+targetCompatibility = jdkVersion
+
+repositories {
+    mavenLocal()
+    // If using a Maven proxy, put the property settings in
+    // ~/.gradle/gradle.properties for defaultCentral_proxy_url,
+    // default_proxy_username and default_proxy_password.
+    if (project.hasProperty("defaultCentral_proxy_url")) {
+        maven {
+            url project.property("defaultCentral_proxy_url")
+            credentials {
+                username project.property("default_proxy_username")
+                password project.property("default_proxy_password")
+            }
+        }
+    } else {
+        mavenCentral()
+    }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-logging'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    // https://github.com/apereo/java-cas-client#spring-boot-autoconfiguration
+    implementation group: 'org.jasig.cas.client', name: 'cas-client-support-springboot', version: casClientVersion
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+    testImplementation 'org.codehaus.groovy:groovy'
+    testImplementation group: 'org.spockframework', name: 'spock-spring', version: '2.1-groovy-3.0'
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+bootRun {
+    jvmArgs = [
+            "-Dserver.port=8070",
+            "-Dserver.ssl.keyStore=${rootProject.projectDir}/test-cas/testkeystore.jks",
+            "-Dserver.ssl.keyStorePassword=changeit",
+            "-Dserver.ssl.keyPassword=changeit",
+            "-Djavax.net.ssl.trustStore=${rootProject.projectDir}/test-cas/testtruststore.jks",
+            "-Djavax.net.ssl.trustStorePassword=changeit"
+    ]
+}
+
+bootWar {
+    launchScript()
+}

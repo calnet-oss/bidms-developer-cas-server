@@ -1,0 +1,8 @@
+cas:
+  server-url-prefix: https://localhost:8060/cas
+  server-login-url: https://localhost:8060/cas/login
+  client-host-url: https://localhost:8070
+  authentication-url-patterns: /protected/*
+  validation-url-patterns: /protected/*
+  request-wrapper-url-patterns: /protected/*
+  assertion-thread-local-url-patterns: /protected/*

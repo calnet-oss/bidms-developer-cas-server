@@ -1,7 +1,5 @@
-# https://apereo.github.io/cas/5.2.x/installation/YAML-Service-Management.html
-
---- !<org.apereo.cas.services.RegexRegisteredService>
-serviceId: "testId"
+--- !<org.apereo.cas.services.CasRegisteredService>
+serviceId: "^https://localhost:8070/.+"
 name: "test"
 id: 1000
 description: "description"
