@@ -1,0 +1,78 @@
+plugins {
+    id 'org.springframework.boot' version "${springBootVersion}"
+    id 'io.spring.dependency-management' version "${springDepMgmtVersion}"
+    id 'java-library'
+    id 'war'
+    id 'maven-publish'
+}
+
+sourceCompatibility = jdkVersion
+targetCompatibility = jdkVersion
+
+version projectVersion
+group projectGroup
+
+repositories {
+    mavenLocal()
+    // If using a Maven proxy, put the property settings in
+    // ~/.gradle/gradle.properties for defaultCentral_proxy_url,
+    // default_proxy_username and default_proxy_password.
+    if (project.hasProperty("defaultCentral_proxy_url")) {
+        maven {
+            url project.property("defaultCentral_proxy_url")
+            credentials {
+                username project.property("default_proxy_username")
+                password project.property("default_proxy_password")
+            }
+        }
+    } else {
+        mavenCentral()
+    }
+    maven { url "https://build.shibboleth.net/nexus/content/repositories/releases" }
+}
+
+dependencies {
+    // CAS Initializr does it this way, but changed to platform from enforcedPlatform.
+    api platform("org.apereo.cas:cas-server-support-bom:$casVersion")
+    api platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES)
+
+    // Core CAS server dependencies
+    api "org.apereo.cas:cas-server-core"
+    api "org.apereo.cas:cas-server-core-api-configuration-model"
+    api "org.apereo.cas:cas-server-webapp-init"
+
+    // "Add-on" CAS dependencies
+    api "org.apereo.cas:cas-server-support-yaml-service-registry"
+    api "org.apereo.cas:cas-server-support-ldap"
+}
+
+springBoot {
+    mainClass = "org.apereo.cas.web.CasWebApplication"
+}
+
+// publishing with './gradlew publish'
+publish.dependsOn assemble
+publishToMavenLocal.dependsOn assemble
+publishing {
+    publications {
+        maven(MavenPublication) {
+            artifactId project.name
+            version projectVersion
+            groupId projectGroup
+            from components.java
+        }
+    }
+
+    repositories {
+        maven {
+            // Put the property settings in ~/.gradle/gradle.properties for
+            // default_deploy_url, calnet_oss_deploy_lib_release_repo,
+            // default_deploy_username and default_deploy_password.
+            url "${project.property('default_deploy_url')}/${project.property('calnet_oss_deploy_lib_release_repo')}"
+            credentials {
+                username project.property("default_deploy_user")
+                password project.property("default_deploy_password")
+            }
+        }
+    }
+}

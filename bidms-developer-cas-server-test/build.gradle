@@ -1,0 +1,85 @@
+plugins {
+    id 'org.springframework.boot' version "${springBootVersion}"
+    id 'io.spring.dependency-management' version "${springDepMgmtVersion}"
+    id 'groovy'
+}
+
+sourceCompatibility = jdkVersion
+targetCompatibility = jdkVersion
+
+repositories {
+    mavenLocal()
+    // If using a Maven proxy, put the property settings in
+    // ~/.gradle/gradle.properties for defaultCentral_proxy_url,
+    // default_proxy_username and default_proxy_password.
+    if (project.hasProperty("defaultCentral_proxy_url")) {
+        maven {
+            url project.property("defaultCentral_proxy_url")
+            credentials {
+                username project.property("default_proxy_username")
+                password project.property("default_proxy_password")
+            }
+        }
+    } else {
+        mavenCentral()
+    }
+    maven { url "https://build.shibboleth.net/nexus/content/repositories/releases" }
+}
+
+ext["tomcat.version"] = tomcatVersion
+
+dependencies {
+    implementation(project(":bidms-developer-cas-server-webapp")) {
+        exclude group: 'org.apache.groovy'
+    }
+    implementation("org.apereo.cas:cas-server-webapp-starter-tomcat:$casVersion") {
+        exclude group: 'org.apache.groovy'
+    }
+    implementation("org.apereo.cas:cas-server-webapp-config:$casVersion") {
+        exclude group: 'org.apache.groovy'
+    }
+
+    implementation group: 'io.github.bkoehm', name: 'apacheds-embedded', version: '0.5'
+
+    implementation 'org.codehaus.groovy:groovy'
+
+    testImplementation group: 'org.jsoup', name: 'jsoup', version: '1.10.2'
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter'
+    }
+    testImplementation group: 'org.spockframework', name: 'spock-spring', version: '2.1-groovy-3.0'
+}
+
+springBoot {
+    mainClass = "org.apereo.cas.web.CasWebApplication"
+}
+
+def casDir = rootProject.hasProperty("casDir") ? rootProject.getProperty("casDir") : "${rootProject.projectDir}/test-cas"
+def casJvmArgs = [
+        "-Dserver.contextPath=/cas",
+        "-Dserver.port=8060",
+        "-Dserver.ssl.keyStore=${casDir}/testkeystore.jks",
+        "-Dserver.ssl.keyStorePassword=changeit",
+        "-Dserver.ssl.keyPassword=changeit",
+        "-Djavax.net.ssl.trustStore=${casDir}/testtruststore.jks",
+        "-Djavax.net.ssl.trustStorePassword=changeit",
+        "-Dlogging.config=classpath:log4j2.xml",
+        "-Dcas.standalone.configuration-directory=${casDir}",
+        "-Dcas.standalone.configuration-file=${casDir}/cas_config.yml",
+        "-Dcas.service-registry.yaml.location=file:${casDir}/services"
+]
+
+test.dependsOn ':test-webapp:bootWar'
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+
+    jvmArgs = casJvmArgs
+}
+
+bootRun {
+    jvmArgs = casJvmArgs
+}

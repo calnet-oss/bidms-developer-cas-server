@@ -1,0 +1,43 @@
+logging.config: classpath:log4j2.xml
+
+# Disable default authn handler
+cas.authn.accept.users: 
+
+# leave cas.host.name unset
+cas.server.name: https://localhost:8060
+cas.server.prefix: ${cas.server.name}/cas
+
+# LDAP authentication
+cas.authn.ldap[0].type: AUTHENTICATED
+cas.authn.ldap[0].ldap-url: ldap://localhost:10389
+cas.authn.ldap[0].base-dn: dc=mydomain,dc=org
+cas.authn.ldap[0].bind-dn: uid=admin,ou=system
+cas.authn.ldap[0].bind-credential: secret
+#cas.authn.ldap[0].attributeResolverEnabled: true
+cas.authn.ldap[0].principal-attribute-id: uid
+cas.authn.ldap[0].additional-attributes: cn
+cas.authn.ldap[0].search-filter: cn={user}
+
+cas.authn.ldap[0].connect-timeout: PT5S
+cas.authn.ldap[0].subtree-search: true
+cas.authn.ldap[0].allow-missing-principal-attribute-value: false
+cas.authn.ldap[0].allow-multiple-principal-attribute-values: false
+cas.authn.ldap[0].allow-multiple-dns: false
+
+cas.person-directory.principal-attribute: uid
+cas.person-directory.return-null: false
+cas.person-directory.principal-resolution-failure-fatal: true
+
+# LDAP attribute repository
+cas.authn.attribute-repository.ldap[0].attributes.uid: uid
+cas.authn.attribute-repository.ldap[0].attributes.sn: sn
+cas.authn.attribute-repository.ldap[0].attributes.givenName: givenName
+cas.authn.attribute-repository.ldap[0].attributes.cn: cn
+
+cas.authn.attribute-repository.ldap[0].ldap-url: ldap://localhost:10389
+cas.authn.attribute-repository.ldap[0].connect-timeout: PT5S
+cas.authn.attribute-repository.ldap[0].base-dn: dc=mydomain,dc=org
+cas.authn.attribute-repository.ldap[0].search-filter: cn={user}
+cas.authn.attribute-repository.ldap[0].subtree-search: true
+cas.authn.attribute-repository.ldap[0].bind-dn: uid=admin,ou=system
+cas.authn.attribute-repository.ldap[0].bind-credential: secret
