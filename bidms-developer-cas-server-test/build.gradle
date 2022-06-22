@@ -26,29 +26,21 @@ repositories {
     maven { url "https://build.shibboleth.net/nexus/content/repositories/releases" }
 }
 
-ext["tomcat.version"] = tomcatVersion
+apply from: rootProject.file('springboot-versions.gradle')
 
 dependencies {
-    implementation(project(":bidms-developer-cas-server-dependencies")) {
-        exclude group: 'org.apache.groovy'
-    }
-    implementation("org.apereo.cas:cas-server-webapp-starter-tomcat:$casVersion") {
-        exclude group: 'org.apache.groovy'
-    }
-    implementation("org.apereo.cas:cas-server-webapp-config:$casVersion") {
-        exclude group: 'org.apache.groovy'
-    }
+    implementation project(":bidms-developer-cas-server-dependencies")
+    implementation "org.apereo.cas:cas-server-webapp-starter-tomcat:$casVersion"
+    implementation "org.apereo.cas:cas-server-webapp-config:$casVersion"
 
     implementation group: 'io.github.bkoehm', name: 'apacheds-embedded', version: '0.5'
-
-    implementation 'org.codehaus.groovy:groovy'
 
     testImplementation group: 'org.jsoup', name: 'jsoup', version: '1.10.2'
 
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter'
     }
-    testImplementation group: 'org.spockframework', name: 'spock-spring', version: '2.1-groovy-3.0'
+    testImplementation group: 'org.spockframework', name: 'spock-spring', version: '2.2-M1-groovy-4.0'
 }
 
 springBoot {

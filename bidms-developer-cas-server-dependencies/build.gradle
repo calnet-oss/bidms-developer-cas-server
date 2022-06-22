@@ -29,6 +29,8 @@ repositories {
     maven { url "https://build.shibboleth.net/nexus/content/repositories/releases" }
 }
 
+apply from: rootProject.file('springboot-versions.gradle')
+
 dependencies {
     // CAS Initializr does it this way, but changed to platform from enforcedPlatform.
     api platform("org.apereo.cas:cas-server-support-bom:$casVersion")

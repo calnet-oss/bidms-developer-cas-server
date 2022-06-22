@@ -72,6 +72,16 @@ Another notable aspect is that `bidms-developer-cas-server-test` embeds
 a LDAP server so that LDAP storage of credentials and attributes can be
 tested.  This embedded LDAP server runs on port `10389`.
 
+### Upgrade to newer CAS version
+
+Edit `gradle.properties and update casVersion and springBootVersion.
+
+Generate an updated `springboot-versions.gradle`:<br/>
+`./gradlew genSpringBootVerOverrides`
+
+Run automated tests (run `./genKey.sh` first if haven't yet done so):<br/>
+`./gradlew test`
+
 ### License
 
 Any source code provided directly by this project are licensed under the
