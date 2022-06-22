@@ -29,7 +29,7 @@ repositories {
 ext["tomcat.version"] = tomcatVersion
 
 dependencies {
-    implementation(project(":bidms-developer-cas-server-webapp")) {
+    implementation(project(":bidms-developer-cas-server-dependencies")) {
         exclude group: 'org.apache.groovy'
     }
     implementation("org.apereo.cas:cas-server-webapp-starter-tomcat:$casVersion") {

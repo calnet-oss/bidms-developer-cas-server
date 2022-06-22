@@ -6,10 +6,10 @@ Initializr service](https://github.com/apereo/cas-initializr).
 
 ### Building a WAR file suitable for deployment to an application server
 
-`./gradlew bidms-developer-cas-server-webapp:war`
+`./gradlew war`
 
 The resulting WAR file that can be deployed is located at:<br/>
-`bidms-developer-cas-server-webapp/build/libs/bidms-developer-cas-server-webapp-${casVersion}-plain.war`
+`build/libs/bidms-developer-cas-server-${casVersion}-plain.war`
 
 ### Configuring to run locally
 
@@ -39,7 +39,7 @@ Refer to the [build.gradle](build.gradle) `bootRun` section for boot-up properti
 `./gradlew bootWar`
 
 The resulting WAR file that can be executed stand-alone is located at:<br/>
-`bidms-developer-cas-server-webapp/build/libs/bidms-developer-cas-server-webapp-${casVersion}.war`
+`build/libs/bidms-developer-cas-server-${casVersion}.war`
 
 You can use the `JAVA_OPTS` environment variable to set initial CAS
 properties similar to what you see in the `bootRun -> jvmArgs` section of
@@ -51,7 +51,7 @@ A one-time task is to generate a keystore for the `test-cas` directory:<br/>
 `./genKey.sh`
 
 Once a keystore is present, tests can be invoked:<br/>
-`./gradlew bidms-developer-cas-server-test:test`
+`./gradlew test`
 
 These test cases are useful when attempting to upgrade to a newer CAS
 version.  Sometimes there are changes to CAS configuration structure.

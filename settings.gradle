@@ -1,5 +1,5 @@
 rootProject.name = 'bidms-developer-cas-server'
 
-include 'bidms-developer-cas-server-webapp',
+include 'bidms-developer-cas-server-dependencies',
     'test-webapp',
     'bidms-developer-cas-server-test'
