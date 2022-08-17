@@ -31,7 +31,7 @@ repositories {
     maven { url "https://build.shibboleth.net/nexus/content/repositories/releases" }
 }
 
-apply from: rootProject.bidmsDeveloperCasServerSpringBootVersions
+apply from: rootProject.file(rootProject.bidmsDeveloperCasServerSpringBootVersions)
 
 dependencies {
     implementation pdep(rootProject.bidmsDeveloperCasServerDeps)
