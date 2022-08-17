@@ -31,7 +31,7 @@ repositories {
     maven { url "https://build.shibboleth.net/nexus/content/repositories/releases" }
 }
 
-apply from: 'springboot-versions.gradle'
+apply from: rootProject.bidmsDeveloperCasServerSpringBootVersions
 
 dependencies {
     implementation pdep(rootProject.bidmsDeveloperCasServerDeps)
@@ -112,7 +112,7 @@ task genSpringBootVerOverrides {
         }
 
         // CAS specifies Spring Boot version overrides in gradle/overrides.groovy in root of the CAS source code.
-        def springBootVersionFile = file('springboot-versions.gradle')
+        def springBootVersionFile = file(rootProject.bidmsDeveloperCasServerSpringBootVersions)
         // skip groovy override for now: for some reason CAS wants to use Groovy 4 when Spring Boot doesn't support it yet.
         def skips = ['groovy.version']
         int counter = 0
