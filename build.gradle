@@ -34,7 +34,7 @@ repositories {
 apply from: 'springboot-versions.gradle'
 
 dependencies {
-    implementation project(":bidms-developer-cas-server-dependencies")
+    implementation pdep(rootProject.bidmsDeveloperCasServerDeps)
     implementation "org.apereo.cas:cas-server-webapp-starter-tomcat:$casVersion"
 }
 
@@ -141,4 +141,8 @@ task genSpringBootVerOverrides {
         }
         println "Wrote $counter version overrides to $springBootVersionFile for CAS version $casVersion"
     }
+}
+
+def pdep(String depstr) {
+    return (depstr.startsWith(":") ? project(depstr) : depstr)
 }

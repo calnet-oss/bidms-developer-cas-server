@@ -29,7 +29,7 @@ repositories {
 apply from: rootProject.file('springboot-versions.gradle')
 
 dependencies {
-    implementation project(":bidms-developer-cas-server-dependencies")
+    implementation pdep(rootProject.bidmsDeveloperCasServerDeps)
     implementation "org.apereo.cas:cas-server-webapp-starter-tomcat:$casVersion"
     implementation "org.apereo.cas:cas-server-webapp-config:$casVersion"
 
